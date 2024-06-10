@@ -57,3 +57,15 @@ print(my_list[1])
 my_dict = {"Text 1": "hi", "reply": "hello"}
 # Allows key value pairs to be stored.
 
+
+# if loops
+value = 5
+if value == 5:
+  print("Correct")
+else:
+  print("False")
+# Conditional statement that determines if something is true or false 
+
+
+
+
