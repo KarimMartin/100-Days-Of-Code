@@ -25,7 +25,6 @@
 #   Dealer wins
 
 
-
 # Code that allows me to draw a random number from cards
 import random
 
@@ -50,15 +49,11 @@ while not game_over:
 
     print(f"You have drawn {player_value}.")  # Telling the player what they've drawn.
 
-    player_drawing_cards = False  # Setting the drawing state of the cards
+    player_drawing_cards = False  # Setting the drawing state of the player drawing cards
+    dealer_drawing_cards = False  # Setting the drawing state of the dealer drawing cards
+
     while player_drawing_cards != True:  # While the game state is set to false, do the below
         player_draw = input("Would you like to draw again (y) or (n)? ") # Ask if they'd like to draw another card.
-
-        if player_draw.upper() == "N":  # If they say no:
-            player_drawing_cards = True  # Stop the loop of drawing cards
-
-
-
 
         if player_draw.upper() == "Y":
             player_value = player_value + draw_card()
@@ -76,13 +71,43 @@ while not game_over:
 
 
 
+        if player_draw.upper() == "N":  # If they say no:
+            player_drawing_cards = True  # Stop the loop of the player drawing cards.
+
+            while dealer_drawing_cards != True:  # While the dealer drawing the cards state isn't true:
+                print(f"Dealer has drawn {dealer_value}")  # Print value of dealers first two cards.
+                if dealer_value > player_value:  # If the dealers value at this point exceeds the players value
+                    dealer_drawing_cards = True  # Stop giving cards to the dealer
+                    print(f"Dealer has {dealer_value}, dealer wins!")  # Print the dealer wins to the console
+                    game_over = True  # Stop the game
+
+                if dealer_value == player_value and dealer_value < 21:
+                    dealer_value = dealer_value + draw_card()
+
+                if dealer_value < player_value:  # Otherwise, if the player's value eexceeds the dealers value
+                    print("Dealer drawing...")  # Print that the dealer is drawing
+                    dealer_value = dealer_value + draw_card()  # Draw a card and add it to the dealers value
+
+
+                    if dealer_value == 21:  # If the dealer has blackjack
+                        dealer_drawing_cards = True  # Stop giving cards to the dealer
+                        print("Dealer blackjack! Dealer wins")  # Print the dealer has blackjack and he wins
+                        game_over = True  # Stop the game
+
+                    elif dealer_value > 21:  # If the dealers value exceeds 21
+                        dealer_drawing_cards = True  # Stop giving cards to the dealer
+                        print(f"Dealer has {dealer_value}. Dealer bust! You win!")  # The dealer goes bust and the player wins
+                        game_over = True  # Stop the game
+
+                    elif dealer_value > player_value and dealer_value < 21: # Otherwise if the dealers value is greater than the player value and over 21
+                        dealer_drawing_cards = True  # Stop giving cards to the dealer
+                        print(f"Dealer has {dealer_value}. Dealer wins!")  # Print the dealers value and state they win
+                        game_over = True  # End the game
+
+
+
+
+
 
 
 print ("Thanks for playing")
-
-
-
-
-
-
-
